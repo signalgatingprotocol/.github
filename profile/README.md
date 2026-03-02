@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://signalgatingprotocol.github.io">Documentation</a> |
-  <a href="https://signalgatingprotocol.github.io/specification/latest">Specification</a> |
+  <a href="https://signalgatingprotocol.github.io/specification">Specification</a> |
   <a href="https://github.com/orgs/signalgatingprotocol/discussions">Discussions</a>
 </p>
 
@@ -27,6 +27,6 @@
 ## Getting Started
 
 - 📚 Read the [Documentation](https://signalgatingprotocol.github.io) for guides and tutorials
-- 🔍 Review the [Specification](https://signalgatingprotocol.github.io/specification/latest) for protocol details
+- 🔍 Review the [Specification](https://signalgatingprotocol.github.io/specification) for protocol details
 - 💻 Use our SDKs to start building:
   - [python-sdk](https://github.com/signalgatingprotocol/python-sdk)
