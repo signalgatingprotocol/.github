@@ -1,7 +1,7 @@
 # Signal Gating Protocol
 
 <p align="center">
-  <img src="assets/cropped.png" alt="SGP Logo" />
+  <img src="assets/light.png" alt="SGP Logo" />
 </p>
 
 <p align="center">
