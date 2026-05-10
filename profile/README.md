@@ -1,32 +1,58 @@
-# Signal Gating Protocol
-
 <p align="center">
-  <img src="assets/light.png" alt="SGP Logo" />
+  <img src="assets/light.png" alt="Signal Gating Protocol" width="640" />
 </p>
 
-<p align="center">
-  <strong> A default‑deny routing + context provenance for agent graphs.</strong>
-</p>
+<h3 align="center">The executive function layer for agent graphs.</h3>
 
 <p align="center">
-  <a href="https://signalgatingprotocol.github.io">Documentation</a> |
-  <a href="https://signalgatingprotocol.github.io/specification">Specification</a> |
+  <a href="https://signalgatingprotocol.github.io">Docs</a>
+  &nbsp;·&nbsp;
+  <a href="https://signalgatingprotocol.github.io/specification">Spec</a>
+  &nbsp;·&nbsp;
   <a href="https://github.com/orgs/signalgatingprotocol/discussions">Discussions</a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/signalgatingprotocol/python-sdk">Python SDK</a>
 </p>
 
-**Signal Gating Protocol (SGP) is:** a control-plane protocol for agent graphs that standardizes:
+---
 
-1. what “processors” are and how they declare activation conditions
-2. what “signals” are and how they carry features + provenance
-3. how an executive router produces a GatePlan (explicit activation + suppression)
-4. how runtimes enforce context minimization (each processor sees only what it needs)
-5. how executions emit a Receipt for audit + learning
+## Why
 
-**What SGP is not:** not a tool protocol (that’s MCP), not agent chat (that’s A2A), not commerce (that’s UCP). SGP is the missing executive function layer.
+Every agent sees everything. Every retrieval is best-effort. Every execution is unverifiable.
 
-## Getting Started
+The bottleneck for agent systems is not models, tools, or memory. It is **executive control** — a layer that decides what runs, what context it sees, and produces proof of what happened.
 
-- 📚 Read the [Documentation](https://signalgatingprotocol.github.io) for guides and tutorials
-- 🔍 Review the [Specification](https://signalgatingprotocol.github.io/specification) for protocol details
-- 💻 Use our SDKs to start building:
-  - [python-sdk](https://github.com/signalgatingprotocol/python-sdk)
+SGP is that layer. Default-deny. Provenance-aware. Receipt-backed.
+
+## The protocol
+
+Five primitives. Nothing more.
+
+| | |
+|---|---|
+| **Processor** | A unit of agent work that declares its activation conditions. |
+| **Signal** | A typed feature with provenance — what is true, and how we know it. |
+| **GatePlan** | The router's explicit decision: who activates, who is suppressed, and with what input. |
+| **Receipt** | A verifiable record of every execution — for audit and learning. |
+| **Runtime** | Enforces the plan. Each processor receives only the context it declared. |
+
+The router is the executive. The runtime is the enforcer. The rest is application.
+
+## What SGP is not
+
+- **Not a tool protocol** — that is MCP.
+- **Not agent chat** — that is A2A.
+- **Not commerce** — that is UCP.
+
+SGP is orthogonal. The missing executive function.
+
+## Start
+
+- [Documentation](https://signalgatingprotocol.github.io) — guides and concepts
+- [Specification](https://signalgatingprotocol.github.io/specification) — the protocol surface
+- [python-sdk](https://github.com/signalgatingprotocol/python-sdk) — reference implementation
+- [Discussions](https://github.com/orgs/signalgatingprotocol/discussions) — questions, critique, prior art
+
+## Status
+
+Draft. The protocol surface is still moving. Critique welcome.
