@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and design discussion
+    url: https://github.com/orgs/signalgatingprotocol/discussions
+    about: Ask questions, compare approaches, and share early ideas.
+  - name: Protocol change
+    url: https://github.com/signalgatingprotocol/community/issues/new/choose
+    about: Propose a change to the protocol surface or RFC process.
+  - name: Private security report
+    url: https://github.com/signalgatingprotocol/community/security/advisories/new
+    about: Report a suspected vulnerability privately.

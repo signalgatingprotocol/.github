@@ -2,58 +2,89 @@
   <img src="assets/light.png" alt="Signal Gating Protocol" width="640" />
 </p>
 
-<h3 align="center">Agent-native signal orchestration for autonomous AI systems.</h3>
+<h3 align="center">Typed, gated, observable signal flow for multi-agent systems.</h3>
 
 <p align="center">
-  <a href="https://signalgatingprotocol.github.io">Docs</a>
-  &nbsp;·&nbsp;
-  <a href="https://signalgatingprotocol.github.io/specification">Spec</a>
-  &nbsp;·&nbsp;
-  <a href="https://github.com/orgs/signalgatingprotocol/discussions">Discussions</a>
+  <a href="https://signalgatingprotocol.github.io">Documentation</a>
   &nbsp;·&nbsp;
   <a href="https://github.com/signalgatingprotocol/python-sdk">Python SDK</a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/signalgatingprotocol/community">Community</a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/orgs/signalgatingprotocol/discussions">Discussions</a>
 </p>
 
----
+## Why SGP
 
-## Why
+Agent graphs often forward too much context, hide routing policy in application
+code, and make execution difficult to reconstruct. SGP makes those control
+decisions explicit with typed signals, composable gates, autonomous processors,
+and observable mesh topology.
 
-Every agent sees everything. Context windows fill with noise, stale information crowds out what matters, and one agent's hallucination cascades through the rest.
+## Current model
 
-The bottleneck for multi-agent systems is not models, tools, or memory. It is **executive control**: a structural layer that decides which signals reach which agent, and wires agents into coordinated workflows.
+| Primitive | Responsibility |
+| --- | --- |
+| **Signal** | Typed, immutable event with identity, lineage, priority, and metadata. |
+| **Gate** | Composable policy that admits, drops, transforms, or controls signal flow. |
+| **Agent** | Asynchronous signal processor with typed handlers, lifecycle, request and response, and tools. |
+| **Mesh** | Directed agent topology with gated edges and coordination patterns. |
 
-SGP is that layer: typed signals, composable gates, autonomous agents, and meshes. Controlled, observable signal flow between agents.
+The [Python SDK](https://github.com/signalgatingprotocol/python-sdk) is the
+reference implementation.
 
-## The primitives
+## Maturity
 
-| | |
-|---|---|
-| **Signal** | A typed, immutable event. Carries a priority and metadata, derived rather than mutated. |
-| **Gate** | A composable predicate that controls which signals reach an agent. Chain, or, and, invert. |
-| **Agent** | An autonomous signal processor (typed handlers, lifecycle, request/response, and tools). Where a runtime like Hermes plugs in. |
-| **Mesh** | The agent network: `connect` agents, then coordinate with scatter, map/reduce, workflow, and race. |
+| Surface | Status |
+| --- | --- |
+| Signal, Gate, Agent, and Mesh runtime | Implemented in the alpha Python SDK |
+| JSON signal wire envelope and trajectory receipts | Implemented in the alpha Python SDK |
+| Cross-runtime interoperability and conformance suite | Draft |
+| GatePlan and default-deny control plane | Design stage |
 
-The reference implementation is the [Python SDK](https://github.com/signalgatingprotocol/python-sdk).
+The implementation is usable for experiments, but the protocol and public API
+may change before 1.0.
 
-## What SGP is not
+## Try it
 
-- **Not a tool protocol**: that is MCP.
-- **Not agent chat**: that is A2A.
-- **Not commerce**: that is UCP.
+```bash
+pip install "signal-gating @ git+https://github.com/signalgatingprotocol/python-sdk"
+```
 
-SGP is orthogonal. The missing executive function.
+```python
+import asyncio
+from signal_gating import Agent, Gate, Mesh, Signal
 
-## Roadmap
+class Task(Signal):
+    text: str
 
-A control plane on top of the primitives: an explicit router that emits a **GatePlan** (who activates, with what context), a **Runtime** that enforces it default-deny, and **Receipts**, verifiable records of every execution, for audit and learning. Design-stage; the four primitives above are what ships today.
+producer = Agent("producer")
+worker = Agent("worker", gates=[Gate.by_priority(3)])
 
-## Start
+@worker.on(Task)
+async def handle(task: Task):
+    print(task.text)
 
-- [Documentation](https://signalgatingprotocol.github.io): guides and concepts
-- [Specification](https://signalgatingprotocol.github.io/specification): the protocol surface
-- [python-sdk](https://github.com/signalgatingprotocol/python-sdk): reference implementation
-- [Discussions](https://github.com/orgs/signalgatingprotocol/discussions): questions, critique, prior art
+mesh = Mesh([producer, worker])
+mesh.connect(producer, worker)
 
-## Status
+async def main():
+    async with mesh:
+        await producer.emit(Task(text="admitted", priority=5))
+        await producer.emit(Task(text="dropped", priority=1))
 
-Draft. The protocol surface is still moving. Critique welcome.
+asyncio.run(main())
+```
+
+## Participate
+
+- Read the [documentation](https://signalgatingprotocol.github.io) and current
+  [draft specification](https://signalgatingprotocol.github.io/specification/).
+- Ask questions or challenge the model in
+  [Discussions](https://github.com/orgs/signalgatingprotocol/discussions).
+- Propose protocol changes through the
+  [RFC process](https://github.com/signalgatingprotocol/community/tree/main/rfcs).
+- Report vulnerabilities through the private process in
+  [SECURITY.md](https://github.com/signalgatingprotocol/.github/blob/main/SECURITY.md).
+
+SGP is alpha. Precise criticism, implementations, and failure cases are welcome.
