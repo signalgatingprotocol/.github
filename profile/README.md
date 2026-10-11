@@ -40,7 +40,7 @@ reference implementation.
 | Signal, Gate, Agent, and Mesh runtime | Implemented in the alpha Python SDK |
 | JSON signal wire envelope and trajectory receipts | Implemented in the alpha Python SDK |
 | Cross-runtime interoperability and conformance suite | Draft |
-| GatePlan and default-deny control plane | Design stage |
+| GatePlan and default-deny control plane | Shipped in the Python SDK (`signal_gating.security`) |
 
 The implementation is usable for experiments, but the protocol and public API
 may change before 1.0.
